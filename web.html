@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil dan Peminjaman Buku</title>
+
+    <style>
+        body {
+            background-color: #E6E6FA; 
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .profile img {
+            max-width: 50%;
+            height: 80%;
+            border-radius: 100%;
+            margin-right: 5px; 
+        }
+
+        .profile div {
+            margin-left: -280px; 
+        }
+
+        .profile h2, .profile p {
+            margin: 5px 0; 
+        }
+
+        .peminjaman-buku {
+            text-align: center;
+            background-color: #E6E6FA;
+        }
+    </style>
+</head>
+<body>
+    <!-- Profil -->
+    <div class="container">
+        <div class="profile">
+            <img src="ft.jpg" alt="Foto Anda">
+            <div>
+                <p>Nama: Oktavia Rosa Laili</p>
+                <p>NIM: 6701223140</p>
+                <p>Kelas: D3SI4604</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="peminjaman-buku">
+        <h2>Peminjaman Buku</h2>
+        <label for="jumlah">Jumlah Buku:</label>
+        <input type="number" id="jumlah" name="jumlah"><br><br>
+        
+        <label for="buku">Pilih Buku:</label>
+        <select id="buku" name="buku">
+            <option value="sherlock">Sherlock</option>
+            <option value="lupin">Lupin</option>
+            <option value="aladin">Aladin</option>
+        </select><br><br>
+        
+        <button onclick="cekPeminjaman()">Pinjam Buku</button>
+    </div>
+
+    <script>
+        let buku = [
+            {"nama": "sherlock", "jumlah":2},
+            {"nama": "lupin", "jumlah":2},
+            {"nama": "aladin", "jumlah":2}
+        ];
+
+        function cekPeminjaman() {
+            let inputJumlah = parseInt(document.getElementById("jumlah").value);
+            let selectedBuku = document.getElementById("buku").value;
+
+            // Cek input jumlah kosong
+            if (isNaN(inputJumlah) || inputJumlah === 0) {
+                alert("Harus mengisi jumlah buku.");
+                return;
+            }
+
+            // Cari buku yang dipilih dalam array
+            let bukuDitemukan = false;
+            let bukuIndex;
+            for (let i = 0; i < buku.length; i++) {
+                if (buku[i].nama === selectedBuku) {
+                    bukuDitemukan = true;
+                    bukuIndex = i;
+                    break;
+                }
+            }
+
+            // Jika buku tidak ditemukan
+            if (!bukuDitemukan) {
+                alert("Mohon maaf buku tidak ditemukan.");
+                return;
+            }
+
+            // Jika jumlah buku yang dipilih lebih banyak dari yang tersedia
+            if (inputJumlah > buku[bukuIndex].jumlah) {
+                alert("Mohon maaf jumlah buku tidak tersedia.");
+                return;
+            }
+
+            // Jika jumlah buku tersedia
+            alert("Silahkan ambil untuk mengambil buku Anda.");
+        }
+    </script>
+</body>
+</html>
